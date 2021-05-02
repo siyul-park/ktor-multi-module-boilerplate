@@ -5,7 +5,7 @@ import io.ktor.response.respondText
 import io.ktor.routing.Route
 import io.ktor.routing.get
 
-fun Route.getRootRoutes() {
+fun Route.rootRoutes() {
     get("/") {
         call.respondText("Hello, world!")
     }
