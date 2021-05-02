@@ -3,11 +3,13 @@ package io.github.siyual_park.application.api
 import com.papsign.ktor.openapigen.OpenAPIGen
 import com.papsign.ktor.openapigen.schema.namer.DefaultSchemaNamer
 import com.papsign.ktor.openapigen.schema.namer.SchemaNamer
+import io.github.siyual_park.application.api.routes.documentRoutes
 import io.github.siyual_park.application.api.routes.pingRoutes
-import io.github.siyual_park.application.api.routes.rootRoutes
 import io.github.siyual_park.gradle_property.ProjectProperty
 import io.ktor.application.Application
 import io.ktor.application.install
+import io.ktor.features.ContentNegotiation
+import io.ktor.jackson.jackson
 import io.ktor.routing.Routing
 import io.ktor.server.netty.EngineMain
 import kotlin.reflect.KType
@@ -15,6 +17,10 @@ import kotlin.reflect.KType
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 fun Application.module(testing: Boolean = false) {
+    install(ContentNegotiation) {
+        jackson()
+    }
+
     install(OpenAPIGen) {
         info {
             version = ProjectProperty.version
@@ -40,7 +46,7 @@ fun Application.module(testing: Boolean = false) {
     }
 
     install(Routing) {
-        rootRoutes()
+        documentRoutes()
         pingRoutes()
     }
 }
