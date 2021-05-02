@@ -1,0 +1,12 @@
+package io.github.siyual_park.application.api.routes
+
+import io.ktor.application.call
+import io.ktor.response.respondText
+import io.ktor.routing.Route
+import io.ktor.routing.get
+
+fun Route.rootRoutes() {
+    get("/") {
+        call.respondText("Hello, world!")
+    }
+}
