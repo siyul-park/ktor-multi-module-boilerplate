@@ -18,5 +18,5 @@ object ProjectProperty {
         get() = properties.getProperty("name") ?: "unspecified"
 
     val description
-        get() = properties.getProperty("name") ?: "unspecified"
+        get() = properties.getProperty("description") ?: "unspecified"
 }
