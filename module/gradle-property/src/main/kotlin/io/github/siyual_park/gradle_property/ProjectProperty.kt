@@ -16,4 +16,7 @@ object ProjectProperty {
 
     val name
         get() = properties.getProperty("name") ?: "unspecified"
+
+    val description
+        get() = properties.getProperty("name") ?: "unspecified"
 }
