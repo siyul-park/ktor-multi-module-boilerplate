@@ -1,3 +1,6 @@
+
+import org.jetbrains.kotlin.konan.properties.Properties
+
 val ktor_version: String by project
 val logback_version: String by project
 val ktor_open_api_version: String by project
@@ -31,3 +34,24 @@ kotlin.sourceSets["test"].kotlin.srcDirs("src/test")
 
 sourceSets["main"].resources.srcDirs("src/main/resources")
 sourceSets["test"].resources.srcDirs("src/test/resources")
+
+val generatedDir = "$buildDir/generated"
+
+sourceSets {
+    main {
+        output.dir(generatedDir, "builtBy" to "generateProjectProperties")
+    }
+}
+
+task("generateProjectProperties") {
+    doLast {
+        val propertiesFile = file("$generatedDir/project.properties")
+        propertiesFile.parentFile.mkdirs()
+
+        val properties = Properties()
+        properties.setProperty("version", rootProject.version.toString())
+        properties.store(propertiesFile.writer(), null)
+    }
+}
+
+(tasks.getByName("processResources") as ProcessResources).setDependsOn(listOf(tasks.getByName("generateProjectProperties")))
