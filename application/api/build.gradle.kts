@@ -23,5 +23,5 @@ dependencies {
 
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
 
-    implementation(project(":module:gradle-property"))
+    implementation(project(":module"))
 }
