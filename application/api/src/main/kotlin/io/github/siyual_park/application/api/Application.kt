@@ -1,7 +1,7 @@
 package io.github.siyual_park.application.api
 
-import io.github.siyual_park.application.api.routes.rootRoutes
 import io.github.siyual_park.application.api.routes.pingRoutes
+import io.github.siyual_park.application.api.routes.rootRoutes
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.routing.Routing
