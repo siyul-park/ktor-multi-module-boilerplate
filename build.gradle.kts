@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 val kotlin_version: String by project
 
 buildscript {
@@ -32,4 +34,29 @@ allprojects {
     dependencies {
         implementation(kotlin("stdlib"))
     }
+
+    // Set package properties
+    val generatedDir = "$buildDir/generated"
+
+    sourceSets {
+        main {
+            output.dir(generatedDir, "builtBy" to "generateProjectProperties")
+        }
+    }
+
+    task("generateProjectProperties") {
+        doLast {
+            val propertiesFile = file("$generatedDir/project.properties")
+            propertiesFile.parentFile.mkdirs()
+
+            val properties = Properties()
+            properties.setProperty("version", rootProject.version.toString())
+            properties.setProperty("group", rootProject.group.toString())
+            properties.setProperty("name", rootProject.name)
+
+            properties.store(propertiesFile.writer(), null)
+        }
+    }
+
+    (tasks.getByName("processResources") as ProcessResources).setDependsOn(listOf(tasks.getByName("generateProjectProperties")))
 }
