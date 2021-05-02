@@ -1,6 +1,7 @@
 package io.github.siyual_park.application.api
 
 import com.papsign.ktor.openapigen.OpenAPIGen
+import com.papsign.ktor.openapigen.route.apiRouting
 import com.papsign.ktor.openapigen.schema.namer.DefaultSchemaNamer
 import com.papsign.ktor.openapigen.schema.namer.SchemaNamer
 import io.github.siyual_park.application.api.routes.documentRoutes
@@ -28,10 +29,6 @@ fun Application.module(testing: Boolean = false) {
             description = ProjectProperty.description
         }
 
-        server("http://localhost:8081/") {
-            description = "Local server"
-        }
-
         // rename DTOs from java type name to generator compatible form
         replaceModule(
             DefaultSchemaNamer,
@@ -47,6 +44,9 @@ fun Application.module(testing: Boolean = false) {
 
     install(Routing) {
         documentRoutes()
-        pingRoutes()
+
+        apiRouting {
+            pingRoutes()
+        }
     }
 }
