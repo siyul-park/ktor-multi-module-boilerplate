@@ -42,7 +42,7 @@ allprojects {
     sourceSets["test"].resources.srcDirs("src/test/resources")
 
     // Set package properties
-    val generatedDir = "$buildDir/generated"
+    val generatedDir = "$buildDir/resources/generated"
 
     sourceSets {
         main {

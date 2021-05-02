@@ -24,4 +24,6 @@ dependencies {
     implementation("com.github.papsign:Ktor-OpenAPI-Generator:$ktor_open_api_version")
 
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
+
+    implementation(project(":module:gradle-property"))
 }
