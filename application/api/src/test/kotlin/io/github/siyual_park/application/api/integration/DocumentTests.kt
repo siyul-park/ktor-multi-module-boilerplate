@@ -7,14 +7,19 @@ import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import kotlin.test.assertNotNull
 
-class RootRoutesTests {
+class DocumentTests {
     @Test
     fun testGetRoot() {
         withTestApplication({ module(testing = true) }) {
-            handleRequest(HttpMethod.Get, "/").apply {
-                assertEquals(response.content, "Hello, world!")
+            handleRequest(HttpMethod.Get, "/openapi.json").apply {
+                assertNotNull(response.content)
                 assertEquals(HttpStatusCode.OK, response.status())
+            }
+
+            handleRequest(HttpMethod.Get, "/").apply {
+                assertEquals(HttpStatusCode.MovedPermanently, response.status())
             }
         }
     }
