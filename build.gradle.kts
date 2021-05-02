@@ -80,14 +80,6 @@ allprojects {
                     project.name
                 }
             )
-            properties.setProperty(
-                "description",
-                if (project.description == "unspecified") {
-                    rootProject.description
-                } else {
-                    project.description
-                }
-            )
 
             properties.store(propertiesFile.writer(), null)
         }
