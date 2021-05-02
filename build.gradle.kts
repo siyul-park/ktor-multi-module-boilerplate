@@ -56,9 +56,30 @@ allprojects {
             propertiesFile.parentFile.mkdirs()
 
             val properties = Properties()
-            properties.setProperty("version", project.version.toString())
-            properties.setProperty("group", project.group.toString())
-            properties.setProperty("name", project.name)
+            properties.setProperty(
+                "version",
+                if (project.version.toString() == "unspecified") {
+                    rootProject.version.toString()
+                } else {
+                    project.version.toString()
+                }
+            )
+            properties.setProperty(
+                "group",
+                if (project.group.toString() == "unspecified") {
+                    rootProject.group.toString()
+                } else {
+                    project.group.toString()
+                }
+            )
+            properties.setProperty(
+                "name",
+                if (project.name == "unspecified") {
+                    rootProject.name
+                } else {
+                    project.name
+                }
+            )
 
             properties.store(propertiesFile.writer(), null)
         }

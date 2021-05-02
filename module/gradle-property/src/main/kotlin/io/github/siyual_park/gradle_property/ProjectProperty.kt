@@ -4,8 +4,8 @@ import java.util.Properties
 
 object ProjectProperty {
     private val properties = Properties()
-        .apply {
-            this.javaClass.getResourceAsStream("generated/project.properties")?.let { load(it) }
+        .also { properties ->
+            this.javaClass.getResourceAsStream("/project.properties")?.let { properties.load(it) }
         }
 
     val version
