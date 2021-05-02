@@ -35,6 +35,12 @@ allprojects {
         implementation(kotlin("stdlib"))
     }
 
+    kotlin.sourceSets["main"].kotlin.srcDirs("src/main")
+    kotlin.sourceSets["test"].kotlin.srcDirs("src/test")
+
+    sourceSets["main"].resources.srcDirs("src/main/resources")
+    sourceSets["test"].resources.srcDirs("src/test/resources")
+
     // Set package properties
     val generatedDir = "$buildDir/generated"
 
@@ -50,9 +56,9 @@ allprojects {
             propertiesFile.parentFile.mkdirs()
 
             val properties = Properties()
-            properties.setProperty("version", rootProject.version.toString())
-            properties.setProperty("group", rootProject.group.toString())
-            properties.setProperty("name", rootProject.name)
+            properties.setProperty("version", project.version.toString())
+            properties.setProperty("group", project.group.toString())
+            properties.setProperty("name", project.name)
 
             properties.store(propertiesFile.writer(), null)
         }
