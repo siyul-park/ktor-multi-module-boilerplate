@@ -2,18 +2,15 @@ package io.github.siyual_park.application.api
 
 import com.papsign.ktor.openapigen.OpenAPIGen
 import com.papsign.ktor.openapigen.route.apiRouting
-import com.papsign.ktor.openapigen.schema.namer.DefaultSchemaNamer
-import com.papsign.ktor.openapigen.schema.namer.SchemaNamer
+import io.github.siyual_park.application.api.configuration.init
 import io.github.siyual_park.application.api.routes.documentRoutes
 import io.github.siyual_park.application.api.routes.pingRoutes
-import io.github.siyual_park.gradle_property.ProjectProperty
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.jackson.jackson
-import io.ktor.routing.Routing
+import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
-import kotlin.reflect.KType
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
@@ -23,30 +20,14 @@ fun Application.module(testing: Boolean = false) {
     }
 
     install(OpenAPIGen) {
-        info {
-            version = ProjectProperty.version
-            title = ProjectProperty.name
-            description = ProjectProperty.description
-        }
-
-        // rename DTOs from java type name to generator compatible form
-        replaceModule(
-            DefaultSchemaNamer,
-            object : SchemaNamer {
-                val regex = Regex("[A-Za-z0-9_.]+")
-
-                override fun get(type: KType): String {
-                    return type.toString().replace(regex) { it.value.split(".").last() }.replace(Regex(">|<|, "), "_")
-                }
-            }
-        )
+        init()
     }
 
-    install(Routing) {
+    routing {
         documentRoutes()
+    }
 
-        apiRouting {
-            pingRoutes()
-        }
+    apiRouting {
+        pingRoutes()
     }
 }
