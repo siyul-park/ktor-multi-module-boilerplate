@@ -1,6 +1,5 @@
 val ktor_version: String by project
 val logback_version: String by project
-val ktor_open_api_version: String by project
 
 plugins {
     application
@@ -21,8 +20,6 @@ dependencies {
     implementation("io.ktor:ktor-jackson:$ktor_version")
 
     implementation("ch.qos.logback:logback-classic:$logback_version")
-
-    implementation("com.github.papsign:Ktor-OpenAPI-Generator:$ktor_open_api_version")
 
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
 

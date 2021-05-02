@@ -1,14 +1,12 @@
 package io.github.siyual_park.application.api.routes
 
-import com.papsign.ktor.openapigen.route.path.normal.NormalOpenAPIRoute
-import com.papsign.ktor.openapigen.route.path.normal.get
-import com.papsign.ktor.openapigen.route.response.respond
-import com.papsign.ktor.openapigen.route.route
+import io.ktor.application.call
+import io.ktor.response.respond
+import io.ktor.routing.Route
+import io.ktor.routing.get
 
-fun NormalOpenAPIRoute.pingRoutes() {
-    route("/ping") {
-        get<Unit, String> {
-            respond("pong")
-        }
+fun Route.pingRoutes() {
+    get("/ping") {
+        call.respond("pong")
     }
 }
